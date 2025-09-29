@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FlavorFetch</title>
+  <style>
+    body {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(to right, #d3d3d3, #808080, #474646);
+    }
+
+    .header {
+      background: #0b0c2a;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      font-size: 24px;
+      font-weight: bold;
+      position: relative;
+    }
+
+    .container {
+      position: absolute;
+      top: 130px;
+      left: 400px;
+      font-size: 20px;
+      width: 500px;
+      height: 300px;
+      padding: 30px;
+      box-shadow: 0 4px 20px black;
+      border-radius: 20px;
+      background: linear-gradient(to right, #1c1c1c, #2e2e2e);
+      text-align: center;
+      
+    }
+
+    h1 {
+      color: #f5f5f5;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #f5f5f5;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 24px;
+      border: none;
+      background-color: rgb(29, 29, 230);
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <div class="logo">FlavorFetch</div>
+  </div>
+
+  <div class="container">
+    <h1>Find Your Perfect Recipe</h1>
+    <p>Explore Cuisines Around the World</p>
+    <button onclick="goToLogin()">Login</button>
+  </div>
+
+  <script>
+    function goToLogin() {
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

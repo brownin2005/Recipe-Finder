@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+       background: linear-gradient(to right, #d3d3d3, #808080, #474646);
+      margin: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      background: rgb(19, 19, 247);
+      color: white;
+      padding: 20px 0;
+      border-radius: 8px;
+    }
+    h1, h2 {
+      margin: 10px 0;
+    }
+    p {
+      line-height: 1.6;
+      color: black;
+    }
+    .team {
+      margin-top: 20px;
+    }
+    .team-member {
+      margin-bottom: 10px;
+    }
+    .back-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background: rgb(23, 23, 241);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .back-btn:hover {
+      background: blue;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>About FlavorFetch</h1>
+    </header>
+
+    <p>
+      Recipe Finder is a user-friendly web application designed to help cooking enthusiasts
+      discover delicious recipes quickly and easily. You can search recipes by ingredients, 
+      and view detailed cooking instructions.
+    </p>
+
+    <p>
+      Our goal is to make cooking simple and enjoyable, whether you are a beginner or an expert. 
+      With Recipe Finder, you can save your favorite recipes and explore new culinary ideas every day.
+    </p>
+
+    <!-- <div class="team">
+      <h2>Our Team</h2>
+      <div class="team-member">
+        <strong>Bibinshia</strong>
+      </div>
+      
+    </div> -->
+
+    <button class="back-btn" onclick="goBack()">Back to Home</button>
+  </div>
+
+  <script>
+    function goBack() {
+      window.location.href = "home.html";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recipe Finder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+       background: linear-gradient(to right, #d3d3d3, #808080, #474646);
+      margin: 0;
+    }
+
+    
+    .header {
+      background: #0b0c2a;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    .nav-links a {
+      margin-left: 20px;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .search-bar {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .search-bar input {
+      width: 50%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .card img {
+      max-width: 100%;
+      width: 200px;
+      object-fit: contain;
+      display: block;
+      margin: auto;
+      padding-top: 20px;
+    }
+
+    .btn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background: rgb(75, 75, 241);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .btn:hover {
+      background: blue;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">
+      FlavorFetch
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html" onclick="about()">About</a>
+      <a href="login.html" onclick="logout()">Logout</a>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+    <h1>Search. Cook. Enjoy</h1>
+
+    <div class="search-bar">
+      <input type="text" id="search" placeholder="Search recipes by name...">
+    </div>
+
+    <div id="recipes" class="grid"></div>
+
+  </div>
+
+  <script>
+    // Check login
+    let loggedInData = localStorage.getItem("loggedIn");
+    if (loggedInData !== "true") {
+      window.location.href = "login.html";
+    }
+
+    const recipesDiv = document.getElementById("recipes");
+    const searchInput = document.getElementById("search");
+    let allRecipes = [];
+
+    // Fetch recipes from API
+    fetch("https://dummyjson.com/recipes")
+      .then((res) => res.json())
+      .then((data) => {
+        allRecipes = data.recipes;
+        displayRecipes(allRecipes);
+      })
+      .catch((err) => console.log("Error:", err));
+
+    // Display recipes
+    function displayRecipes(recipes) {
+      recipesDiv.innerHTML = "";
+      recipes.forEach((recipe) => {
+        let card = document.createElement("div");
+        card.classList.add("card");
+        card.innerHTML = `
+          <img src="${recipe.image}" alt="${recipe.name}">
+          <h3>${recipe.name}</h3>
+          <p><strong>Cuisine:</strong> ${recipe.cuisine}</p>
+          <p><strong>Prep Time:</strong> ${recipe.prepTimeMinutes} mins</p>
+        `;
+
+        card.addEventListener("click", () => {
+          localStorage.setItem("selectedRecipeId", recipe.id);
+          window.location.href = "recipe.html";
+        });
+        recipesDiv.appendChild(card);
+      });
+    }
+
+    // Search filter
+    searchInput.addEventListener("input", () => {
+      const searchValue = searchInput.value.toLowerCase();
+      const filtered = allRecipes.filter(recipe =>
+        recipe.name.toLowerCase().includes(searchValue)
+      );
+      displayRecipes(filtered);
+    });
+
+    // Logout function
+    function logout() {
+      localStorage.removeItem("loggedIn");
+      window.location.href = "login.html";
+    }
+
+    // About Us
+    function about() {
+      window.location.href = "about.html";
+    }
+  </script>
+</body>
+</html>

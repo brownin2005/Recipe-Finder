@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recipe Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #d3d3d3, #808080, #474646);
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: whitesmoke;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    img {
+      display: block;
+      margin: auto;
+      max-width: 300px;
+      /* border-radius: 300px; */
+      
+    }
+    h1 {
+      text-align: center;
+    }
+    ul {
+      list-style: square;
+      padding-left: 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      background: rgb(46, 46, 235);
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .back-btn:hover {
+      background: blue;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="home.html" class="back-btn">⬅ Back</a>
+    <h1 id="name"></h1>
+    <img id="image" src="" alt="">
+    <p id="cuisine"></p>
+    <p id="prepTime"></p>
+    <p id="difficulty"></p>
+    <p id="mealType"></p>
+    <h2>Ingredients</h2>
+    <ul id="ingredients"></ul>
+    <h2>Instructions</h2>
+    <ol id="instructions"></ol>
+  </div>
+
+  <script>
+    // Get selected recipe ID from localStorage
+    const recipeId = localStorage.getItem("selectedRecipeId");
+
+    if (!recipeId) {
+      window.location.href = "home.html"; // if no recipe selected
+    }
+
+    // Fetch recipe details
+    fetch(`https://dummyjson.com/recipes/${recipeId}`)
+      .then(res => res.json())
+      .then(recipe => {
+        document.getElementById("name").innerText = recipe.name;
+        document.getElementById("image").src = recipe.image;
+        document.getElementById("cuisine").innerText = "Cuisine:"+recipe.cuisine;
+        document.getElementById("prepTime").innerText = "Prep Time:"+recipe.prepTimeMinutes+"Mins";
+        document.getElementById("difficulty").innerText = "Difficulty:"+recipe.difficulty;
+        document.getElementById("mealType").innerText = "Meal Type:"+recipe.mealType
+
+        // Ingredients
+        let ingList = document.getElementById("ingredients");
+        recipe.ingredients.forEach(ing => {
+          let li = document.createElement("li");
+          li.innerText = ing;
+          ingList.appendChild(li);
+        });
+
+        // Instructions
+        let instList = document.getElementById("instructions");
+        recipe.instructions.forEach(step => {
+          let li = document.createElement("li");
+          li.innerText = step;
+          instList.appendChild(li);
+        });
+      })
+      .catch(err => console.log("Error:", err));
+  </script>
+</body>
+</html>
